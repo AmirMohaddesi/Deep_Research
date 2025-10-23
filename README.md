@@ -94,7 +94,7 @@ The Space will automatically install dependencies from `requirements.txt` and st
 ## 👨‍💻 Author
 **Seyed Amirhosein Mohaddesi**  
 Ph.D. in Cognitive Robotics — UC Irvine  
-🌐 [Website](https://amirhoseinmohaddesi.github.io) | 🤗 [Hugging Face](https://huggingface.co/AMIXXM) | 🧩 [GitHub](https://github.com/AmirMohaddesi)
+🌐 [Website](https://amirmohaddesi.github.io) | 🤗 [Hugging Face](https://huggingface.co/AMIXXM) | 🧩 [GitHub](https://github.com/AmirMohaddesi)
 
 ---
 
