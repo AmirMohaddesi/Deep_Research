@@ -5,7 +5,7 @@
 🔗 **Live Demo on Hugging Face:**  
 👉 [https://huggingface.co/spaces/AMIXXM/Deep_Research](https://huggingface.co/spaces/AMIXXM/Deep_Research)
 
-![Architecture](docs/assets/deep_research_architecture_no_notifier.png)
+![Architecture](docs/assets/deep_research_architecture.png)
 
 ---
 
