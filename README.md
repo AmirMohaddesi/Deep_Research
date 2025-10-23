@@ -1,4 +1,4 @@
-# Deep Research — Multi-Agent System (Gradio + OpenAI)
+# Deep Research - Multi-Agent System (Gradio + OpenAI)
 
 > An autonomous multi-agent research workflow that clarifies, plans, searches, and synthesizes reports into clean HTML or email-ready outputs.
 
