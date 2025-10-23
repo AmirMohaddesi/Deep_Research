@@ -2,8 +2,8 @@
 
 > An autonomous multi-agent research workflow that clarifies, plans, searches, and synthesizes reports into clean HTML or email-ready outputs.
 
-🔗 **Live Demo on Hugging Face:**  
-👉 [https://huggingface.co/spaces/AMIXXM/Deep_Research](https://huggingface.co/spaces/AMIXXM/Deep_Research)
+🔗 **Live Demo (for demo use only):**  
+👉 https://huggingface.co/spaces/AMIXXM/Deep_Research
 
 ![Architecture](docs/deep_research_architecture.png)
 
@@ -18,7 +18,7 @@
 - **Email Agent** – (optional) converts the report into HTML and emails it.  
 - **Manager Agent** – orchestrates all steps and streams real-time progress to the Gradio UI.
 
-This project is designed for reproducibility, extensibility, and easy deployment on **Hugging Face Spaces**.
+This project is designed for reproducibility, extensibility, and easy **self-hosted** deployment (no commercial Hugging Face usage required).
 
 ---
 
@@ -36,41 +36,69 @@ Then open **http://127.0.0.1:7860** in your browser.
 
 ---
 
+## 🌍 Share Publicly with Gradio (Free)
+You can deploy this app using Gradio’s built-in sharing feature — it provides a **temporary, secure public link** without using Hugging Face hosting.
+
+1. In your launcher file (for example, `deep_research.py`), modify the last line:
+   ```python
+   ui.launch(share=True, server_name="0.0.0.0", server_port=7860)
+   ```
+2. Then run:
+   ```bash
+   python deep_research.py
+   ```
+3. Gradio will display a URL like:
+   ```
+   Running on local URL:  http://127.0.0.1:7860
+   Running on public URL: https://1234abcd.gradio.live
+   ```
+   Share that public `.gradio.live` URL freely — it’s hosted by Gradio’s secure tunnel, not Hugging Face.
+
+---
+
+## 🖥️ Self-Host with Docker
+You can also deploy your own containerized version for private or research use.
+
+**Dockerfile example:**
+```dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+ENV GRADIO_SERVER_NAME=0.0.0.0
+EXPOSE 7860
+CMD ["python", "deep_research.py"]
+```
+
+**Build and run:**
+```bash
+docker build -t deep-research .
+docker run -p 7860:7860 --env-file .env deep-research
+```
+
+Open **http://localhost:7860** in your browser.
+
+---
+
+## ☁️ Cloud Run (One-Line Deploy)
+If you have Google Cloud CLI installed, you can deploy directly:
+```bash
+gcloud run deploy deep-research \
+  --source . \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --set-env-vars OPENAI_API_KEY=YOUR_KEY,SENDGRID_API_KEY=YOUR_KEY
+```
+You’ll get a public HTTPS URL after deployment.
+
+---
+
 ## 🧩 Environment Variables
 Set your API keys in `.env`:
 ```
 OPENAI_API_KEY=sk-...
 SENDGRID_API_KEY=...   # optional, for Email Agent
-```
-
-*(Use Hugging Face “Repository Secrets” for secure deployment.)*
-
----
-
-## 🚀 Deploy on Hugging Face Spaces
-`research_agent.py` is the Space entry point.
-
-In your Space configuration (`README` header or Settings → Metadata):
-
-```yaml
----
-title: Deep_Research
-app_file: research_agent.py
-sdk: gradio
-sdk_version: 5.34.2
----
-```
-
-The Space will automatically install dependencies from `requirements.txt` and start serving the Gradio UI.
-
-### Embed on your website
-```html
-<iframe
-  src="https://huggingface.co/spaces/AMIXXM/Deep_Research?embed=true"
-  width="850"
-  height="600"
-  style="border:none;border-radius:8px"
-></iframe>
 ```
 
 ---
@@ -94,7 +122,7 @@ The Space will automatically install dependencies from `requirements.txt` and st
 ## 👨‍💻 Author
 **Seyed Amirhosein Mohaddesi**  
 Ph.D. in Cognitive Robotics — UC Irvine  
-🌐 [Website](https://amirmohaddesi.github.io) | 🤗 [Hugging Face](https://huggingface.co/AMIXXM) | 🧩 [GitHub](https://github.com/AmirMohaddesi)
+🌐 https://amirmohaddesi.github.io • 🤗 https://huggingface.co/AMIXXM • 🧩 https://github.com/AmirMohaddesi
 
 ---
 
