@@ -1,23 +1,57 @@
+# Deep Research — Multi-Agent System (Gradio + OpenAI)
 
-# Deep Research — Clean Repo (HF: `research_agent.py`, Local: `deep_research.py`)
+> An autonomous multi-agent research workflow that clarifies, plans, searches, and synthesizes reports into clean HTML or email-ready outputs.
 
-This repository is organized so that:
-- **Hugging Face Space runs `research_agent.py`**
-- **Local Gradio testing runs `deep_research.py`**
-- `notifier_agent.py` in GitHub is a **NO-OP stub**. Keep your real notifier **private on HF** only.
+🔗 **Live Demo on Hugging Face:**  
+👉 [https://huggingface.co/spaces/AMIXXM/Deep_Research](https://huggingface.co/spaces/AMIXXM/Deep_Research)
 
-![Architecture](docs/assets/architecture.png)
+![Architecture](docs/assets/deep_research_architecture_no_notifier.png)
 
-## Run Locally (Gradio)
+---
+
+## 🧠 Overview
+**Deep Research** is a modular AI pipeline that coordinates multiple agents to perform structured, end-to-end research:
+- **Clarifier Agent** – asks 3 key clarifying questions to refine ambiguous prompts.  
+- **Planner Agent** – decomposes the query into targeted search tasks.  
+- **Search Agent** – performs parallel searches and compiles summaries.  
+- **Writer Agent** – synthesizes findings into a structured Markdown report.  
+- **Email Agent** – (optional) converts the report into HTML and emails it.  
+- **Manager Agent** – orchestrates all steps and streams real-time progress to the Gradio UI.
+
+This project is designed for reproducibility, extensibility, and easy deployment on **Hugging Face Spaces**.
+
+---
+
+## ⚙️ Run Locally
 ```bash
+git clone https://github.com/AmirMohaddesi/Deep_Research.git
+cd Deep_Research
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
 python deep_research.py
 ```
 
-## Hugging Face Space
-`research_agent.py` is the entry. In your Space settings (YAML):
+Then open **http://127.0.0.1:7860** in your browser.
+
+---
+
+## 🧩 Environment Variables
+Set your API keys in `.env`:
+```
+OPENAI_API_KEY=sk-...
+SENDGRID_API_KEY=...   # optional, for Email Agent
+```
+
+*(Use Hugging Face “Repository Secrets” for secure deployment.)*
+
+---
+
+## 🚀 Deploy on Hugging Face Spaces
+`research_agent.py` is the Space entry point.
+
+In your Space configuration (`README` header or Settings → Metadata):
+
 ```yaml
 ---
 title: Deep_Research
@@ -27,30 +61,9 @@ sdk_version: 5.34.2
 ---
 ```
 
-### Hiding the Notifier
-- The public repo ships **`notifier_agent.py`** as a no-op stub.
-- To enable notifications **only on HF**, create a **private** file `notifier_agent.py` in the HF Space repo (via the web editor) with your real implementation (e.g., Pushover).  
-- The public GitHub repo should **not** include your real notifier.  
-- Env vars required on HF (set in Space Secrets):
-  - `PUSHOVER_TOKEN`
-  - `PUSHOVER_USER`
+The Space will automatically install dependencies from `requirements.txt` and start serving the Gradio UI.
 
-## Environment
-```
-OPENAI_API_KEY=sk-...
-SENDGRID_API_KEY=...        # optional
-PUSHOVER_TOKEN=...          # optional (HF only)
-PUSHOVER_USER=...           # optional (HF only)
-```
-
-## Files
-- `research_agent.py` — orchestrator for HF
-- `deep_research.py` — local-only Gradio UI
-- `planner_agent.py`, `search_agent.py`, `writer_agent.py`, `email_agent.py`
-- `notifier_agent.py` — **NO-OP stub** (real notifier lives only on HF Space)
-- `docs/assets/architecture.png`
-
-## Embed (Website)
+### Embed on your website
 ```html
 <iframe
   src="https://huggingface.co/spaces/AMIXXM/Deep_Research?embed=true"
@@ -60,7 +73,30 @@ PUSHOVER_USER=...           # optional (HF only)
 ></iframe>
 ```
 
-## LinkedIn Launch (short)
-> 🚀 **Deep Research — now live on Hugging Face**  
-> Planner → parallel Search → Writer → optional Email/Notify, orchestrated in `research_agent.py`.  
-> Try it: https://huggingface.co/spaces/AMIXXM/Deep_Research
+---
+
+## 🧱 Architecture Summary
+1. **User Input** → Clarifier Agent → Planner Agent  
+2. **Planner Output** → parallel Search Agents → Writer Agent  
+3. **Writer Output** → HTML Converter → (optional) Email Agent  
+4. **Status** updates streamed through `yield_status`  
+5. **Input/Output Guardrails** ensure safety and factuality  
+
+---
+
+## 💡 Example Use Cases
+- Generating literature-style research briefs  
+- Compiling multi-source analyses for startups or policy reports  
+- Automated academic or technical landscape reviews  
+
+---
+
+## 👨‍💻 Author
+**Seyed Amirhosein Mohaddesi**  
+Ph.D. in Cognitive Robotics — UC Irvine  
+🌐 [Website](https://amirhoseinmohaddesi.github.io) | 🤗 [Hugging Face](https://huggingface.co/AMIXXM) | 🧩 [GitHub](https://github.com/AmirMohaddesi)
+
+---
+
+## 🪶 License
+MIT License — free for research and commercial use.
